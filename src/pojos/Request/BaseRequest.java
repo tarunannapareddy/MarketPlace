@@ -1,4 +1,4 @@
-package Pojos.Request;
+package pojos.Request;
 
 import java.io.Serializable;
 

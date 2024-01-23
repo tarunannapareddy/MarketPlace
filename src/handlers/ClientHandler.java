@@ -1,7 +1,7 @@
-package Handlers;
+package handlers;
 
-import Mappers.RequestHandlerMapper;
-import Pojos.Operation;
+import mappers.RequestHandlerMapper;
+import pojos.Operation;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

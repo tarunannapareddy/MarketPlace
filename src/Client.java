@@ -1,5 +1,5 @@
-import Pojos.Request.LogInRequest;
-import Pojos.Operation;
+import pojos.Request.LogInRequest;
+import pojos.Operation;
 
 import java.io.*;
 import java.net.Socket;

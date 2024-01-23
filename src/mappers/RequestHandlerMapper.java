@@ -1,9 +1,9 @@
-package Mappers;
+package mappers;
 
-import Handlers.CreateAccountHandler;
-import Handlers.LogInRequestHandler;
-import Handlers.RequestHandler;
-import Pojos.Operation;
+import handlers.CreateAccountHandler;
+import handlers.LogInRequestHandler;
+import handlers.RequestHandler;
+import pojos.Operation;
 
 public class RequestHandlerMapper {
     public static LogInRequestHandler logInRequestHandler= new LogInRequestHandler();

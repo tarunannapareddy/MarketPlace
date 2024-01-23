@@ -1,6 +1,6 @@
-package Handlers;
+package handlers;
 
-import Pojos.Request.LogInRequest;
+import pojos.Request.LogInRequest;
 
 public class LogInRequestHandler implements RequestHandler{
     @Override

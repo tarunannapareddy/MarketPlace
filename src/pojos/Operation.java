@@ -1,4 +1,4 @@
-package Pojos;
+package pojos;
 
 public enum Operation {
     LOGIN,
