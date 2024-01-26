@@ -11,7 +11,7 @@ public class Test {
         UsersDAO usersDAO=new UsersDAO();
        // Buyer buyerinfo = buyerDAO.getBuyerInfo(buyerid);
         //System.out.println(buyerinfo.getName()+" "+buyerinfo.getItemsPurchased());
-        int user =usersDAO.createUsers(pw);
+        int user =usersDAO.createUser(pw);
         System.out.println(user);
     }
 }

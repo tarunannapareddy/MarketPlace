@@ -10,7 +10,7 @@ public class UsersDAO {
     DButils dbdetails= new DButils(url);
     private Connection conn = null;
 
-    public Integer createUsers(String password){
+    public Integer createUser(String password){
         if (conn==null){
                 conn = dbdetails.connect();
         }
