@@ -5,10 +5,13 @@ import pojos.Request.BuyerRequest;
 
 public class Test {
     public static void main(String[] args) {
-        BuyerRequest buyerRequest= new BuyerRequest(1);
+        int buyerid=1;
+        String pw = "pass1";
         BuyerDAO buyerDAO=new BuyerDAO();
-        Buyer buyerinfo = new Buyer();
-        buyerinfo=buyerDAO.getBuyerInfo(buyerRequest);
-        System.out.println(buyerinfo.getName()+" "+buyerinfo.getItemsPurchased());
+        UsersDAO usersDAO=new UsersDAO();
+       // Buyer buyerinfo = buyerDAO.getBuyerInfo(buyerid);
+        //System.out.println(buyerinfo.getName()+" "+buyerinfo.getItemsPurchased());
+        int user =usersDAO.createUsers(pw);
+        System.out.println(user);
     }
 }

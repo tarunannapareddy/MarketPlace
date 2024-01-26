@@ -14,7 +14,7 @@ public class Client {
             Object request = null;
             Operation operation = Operation.valueOf(userInput.readLine());
             if(Operation.LOGIN.equals(operation) || Operation.CREATE_ACCOUNT.equals(operation)) {
-                request= new LogInRequest(userInput.readLine(), userInput.readLine());
+                request= new LogInRequest(userInput.read(), userInput.readLine());
             }
             System.out.println(operation+" input "+request);
 

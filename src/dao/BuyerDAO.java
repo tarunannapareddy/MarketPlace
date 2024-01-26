@@ -12,7 +12,7 @@ public class BuyerDAO {
     private String url = "jdbc:postgresql://localhost/users";
     DButils dbdetails= new DButils(url);
     private Connection conn = null;
-    public Buyer getBuyerInfo(BuyerRequest buyerRequest){
+    public Buyer getBuyerInfo(int buyerId){
         if (conn==null){
             try {
                 conn = dbdetails.connect();
@@ -22,7 +22,7 @@ public class BuyerDAO {
 
         }
         Buyer buyerInfo = null;
-      String  query= "SELECT buyer_id,buyer_name,num_items_purch FROM buyers where buyer_id="+buyerRequest.buyerId;
+        String  query= "SELECT buyer_id,buyer_name,num_items_purch FROM buyers where buyer_id="+buyerId;
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
