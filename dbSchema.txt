@@ -1,0 +1,112 @@
+CREATE DATABASE customer
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LOCALE_PROVIDER = 'libc'
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+
+ CREATE TABLE account (
+     id serial PRIMARY KEY,
+     user_id character varying(32) NOT NULL,
+     password character varying(32) NOT NULL,
+     UNIQUE (user_id)
+ );
+
+
+ ALTER TABLE IF EXISTS public."account"
+     OWNER to postgres;
+
+CREATE TABLE seller (
+    id integer PRIMARY KEY,
+    name character varying(32) NOT NULL,
+    pos_rev_count integer DEFAULT 0,
+    neg_rev_count integer DEFAULT 0,
+    items_sold integer DEFAULT 0,
+    FOREIGN KEY (id) REFERENCES account(id) NOT VALID
+);
+
+ ALTER TABLE IF EXISTS public.seller
+     OWNER to postgres;
+
+CREATE TABLE buyer (
+    id integer PRIMARY KEY,
+    name character varying(32) NOT NULL,
+    items_purchased integer DEFAULT 0,
+    FOREIGN KEY (id) REFERENCES account(id) NOT VALID
+);
+
+ ALTER TABLE IF EXISTS public.buyer
+     OWNER to postgres;
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ CREATE DATABASE product
+     WITH
+     OWNER = postgres
+     ENCODING = 'UTF8'
+     LOCALE_PROVIDER = 'libc'
+     CONNECTION LIMIT = -1
+     IS_TEMPLATE = False;
+
+ CREATE TABLE item (
+     id serial PRIMARY KEY,
+     item_id character varying(40) NOT NULL,
+     category integer NOT NULL,
+     seller_id integer NOT NULL,
+     name character varying(32) NOT NULL,
+     quantity integer NOT NULL,
+     sale_price double precision NOT NULL,
+     keywords character varying(8)[] DEFAULT '{}'::character varying[]
+     UNIQUE (item_id)
+ );
+
+ ALTER TABLE IF EXISTS public.item
+     OWNER to postgres;
+
+CREATE TABLE cart (
+    id serial PRIMARY KEY,
+    buyer_id integer NOT NULL
+);
+
+ ALTER TABLE IF EXISTS public.cart
+     OWNER to postgres;
+
+CREATE TABLE cart_item (
+    id serial PRIMARY KEY,
+    cart_id integer REFERENCES cart(id) NOT NULL,
+    quantity integer NOT NULL,
+    item_id character varying(40) REFERENCES item(item_id) NOT NULL
+);
+
+ ALTER TABLE IF EXISTS public.cart_item
+     OWNER to postgres;
+
+CREATE TABLE "order" (
+    id serial PRIMARY KEY,
+    buyer_id integer NOT NULL
+);
+
+ ALTER TABLE IF EXISTS public."order"
+     OWNER to postgres;
+
+CREATE TABLE order_item (
+    id serial PRIMARY KEY,
+    order_id integer REFERENCES "order"(id) NOT NULL,
+    quantity integer NOT NULL,
+    item_id character varying(40) REFERENCES item(item_id) NOT NULL
+);
+
+ ALTER TABLE IF EXISTS public.order_item
+     OWNER to postgres;
+
+CREATE TABLE feedback (
+    id serial PRIMARY KEY,
+    order_id integer REFERENCES "order"(id) NOT NULL,
+    item_id character varying(40) REFERENCES item(item_id) NOT NULL,
+    buyer_id integer NOT NULL,
+    feedback boolean NOT NULL
+);
+
+ALTER TABLE IF EXISTS public.feedback
+    OWNER to postgres;

@@ -1,5 +1,7 @@
+import pojos.Request.CreateAccountRequest;
 import pojos.Request.LogInRequest;
 import pojos.Operation;
+import pojos.UserType;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,8 +15,10 @@ public class Client {
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             Object request = null;
             Operation operation = Operation.valueOf(userInput.readLine());
-            if(Operation.LOGIN.equals(operation) || Operation.CREATE_ACCOUNT.equals(operation)) {
+            if(Operation.LOGIN.equals(operation)) {
                 request= new LogInRequest(userInput.readLine(), userInput.readLine());
+            } else if(Operation.CREATE_ACCOUNT.equals(operation)){
+                request = new CreateAccountRequest(userInput.readLine(), userInput.readLine(), UserType.valueOf(userInput.readLine()), userInput.readLine());
             }
             System.out.println(operation+" input "+request);
 

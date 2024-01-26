@@ -1,11 +1,11 @@
 package pojos;
 
-public class Account {
+public class User {
     String userName;
     String password;
     Integer id;
 
-    public Account(String userName, String password, Integer id) {
+    public User(String userName, String password, Integer id) {
         this.userName = userName;
         this.password = password;
         this.id = id;
