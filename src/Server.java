@@ -8,17 +8,15 @@ import java.util.concurrent.Executors;
 
 public class Server {
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        int count =1;
+        ExecutorService executorService = Executors.newFixedThreadPool(count);
         try {
             ServerSocket serverSocket = new ServerSocket(8081);
             System.out.println("Server is waiting for client connections...");
 
-            while(true) {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Client connected.");
-
-                // Create a new thread to handle the client
-                executorService.execute(new ClientHandler(clientSocket));
+            while(count>0) {
+                executorService.execute(new ClientHandler(serverSocket));
+                count--;
             }
         } catch (IOException e) {
             e.printStackTrace();

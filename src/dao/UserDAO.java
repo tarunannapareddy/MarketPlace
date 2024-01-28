@@ -54,10 +54,10 @@ public class UserDAO {
         Statement statement;
         User user = null;
         try {
-            String query=String.format("select * from %s where user_d= '%s' and password = '%s'",userName, password);
+            String query=String.format("select * from account where user_id= '%s' and password = '%s' ",userName, password);
             statement=conn.createStatement();
             ResultSet res =statement.executeQuery(query);
-            if(res !=null) {
+            if(res.next()) {
                 user = new User(res.getString("user_id"), res.getString("password"), res.getInt("id"));
             }
         }catch (Exception e){

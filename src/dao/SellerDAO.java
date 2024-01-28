@@ -54,7 +54,7 @@ public class SellerDAO {
         return seller;
     }
 
-    public void updateReviewCounts(Integer seller_id,boolean review){
+    public boolean updateReviewCounts(Integer seller_id,boolean review){
         String query = null;
         if (review){
             query = "UPDATE seller set  pos_rev_count = pos_rev_count+1 where id = "+seller_id;
@@ -70,12 +70,14 @@ public class SellerDAO {
                 }else {
                     System.out.println("Unable to update review count");
                 }
+                return true;
             }catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     public void updateItemsSold(Integer seller_id,Integer itemssold){
