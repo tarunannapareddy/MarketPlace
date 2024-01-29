@@ -10,7 +10,9 @@ public enum Operation {
     SELLER_GET_ITEMS,
     SELLER_UPDATE_ITEM,
     RATE_ITEM,
+    SEARCH_ITEM,
 
-    SEARCH_ITEM
+    UPDATE_CART,
+    DEFAULT
 }
 

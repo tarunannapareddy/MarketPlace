@@ -1,9 +1,6 @@
 package mappers;
 
-import dao.BuyerDAO;
-import dao.ItemDAO;
-import dao.SellerDAO;
-import dao.UserDAO;
+import dao.*;
 import dbConnector.DBConnector;
 import handlers.*;
 import pojos.Operation;
@@ -19,6 +16,10 @@ public class RequestHandlerMapper {
     private static BuyerDAO buyerDAO = new BuyerDAO();
 
     private static ItemDAO itemDAO = new ItemDAO();
+
+    private static CartDAO cartDAO = new CartDAO();
+
+    private static FeedBackDAO feedBackDAO = new FeedBackDAO();
     public static LogInRequestHandler logInRequestHandler= new LogInRequestHandler(userDAO);
     public static CreateAccountHandler createAccountHandler = new CreateAccountHandler(userDAO, buyerDAO, sellerDAO);
 
@@ -29,8 +30,10 @@ public class RequestHandlerMapper {
     public static UpdateItemHandler updateItemHandler = new UpdateItemHandler(itemDAO);
 
     public static SellerRatingHandler sellerRatingHandler = new SellerRatingHandler(sellerDAO);
-    public static RateItemHandler rateItemHandler = new RateItemHandler(itemDAO, sellerDAO);
+    public static RateItemHandler rateItemHandler = new RateItemHandler(itemDAO, sellerDAO, feedBackDAO);
     public static SearchItemHandler searchItemHandler = new SearchItemHandler(itemDAO);
+
+    public static UpdateCartHandler updateCartHandler = new UpdateCartHandler(cartDAO,itemDAO);
 
     public static RequestHandler getRequestHandler(Operation operation){
         switch (operation){
@@ -43,6 +46,7 @@ public class RequestHandlerMapper {
             case SELLER_UPDATE_ITEM : return updateItemHandler;
             case RATE_ITEM: return rateItemHandler;
             case SEARCH_ITEM: return searchItemHandler;
+            case UPDATE_CART: return  updateCartHandler;
         }
         return null;
     }
