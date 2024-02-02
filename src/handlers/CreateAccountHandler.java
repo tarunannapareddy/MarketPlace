@@ -1,12 +1,13 @@
 package handlers;
 
+import Exceptions.InvalidDataException;
 import dao.BuyerDAO;
 import dao.SellerDAO;
 import dao.UserDAO;
 import pojos.Buyer;
 import pojos.Request.CreateAccountRequest;
-import pojos.Request.LogInRequest;
 import pojos.Seller;
+import pojos.Session;
 import pojos.UserType;
 
 public class CreateAccountHandler implements RequestHandler{
@@ -21,7 +22,7 @@ public class CreateAccountHandler implements RequestHandler{
     }
 
     @Override
-    public Object handle(Object request) {
+    public Object handle(Object request, Session session) throws InvalidDataException {
         CreateAccountRequest createAccountRequest = (CreateAccountRequest) request;
         int id = userDAO.createUser(createAccountRequest.username,createAccountRequest.password);
         if(id !=-1){
@@ -31,6 +32,7 @@ public class CreateAccountHandler implements RequestHandler{
                  sellerDAO.createSeller(new Seller(id, createAccountRequest.getName()));
             }
         }
+        session.setSessionId(id);
         return id;
     }
 }

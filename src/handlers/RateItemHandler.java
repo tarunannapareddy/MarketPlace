@@ -1,10 +1,12 @@
 package handlers;
 
+import Exceptions.InvalidDataException;
 import dao.FeedBackDAO;
 import dao.ItemDAO;
 import dao.SellerDAO;
 import pojos.Item;
 import pojos.Request.RateItemRequest;
+import pojos.Session;
 
 public class RateItemHandler implements RequestHandler{
 
@@ -20,10 +22,13 @@ public class RateItemHandler implements RequestHandler{
     }
 
     @Override
-    public Object handle(Object request) {
+    public Object handle(Object request, Session session) throws InvalidDataException {
         RateItemRequest rateItemRequest = (RateItemRequest)  request;
+        if(!session.getSessionId().equals(rateItemRequest.getBuyerId())){
+            throw new InvalidDataException("User not Authorised");
+        }
         Item item = itemDAO.getItem(rateItemRequest.itemId);
-        if(feedBackDAO.doesFeedbackExist(rateItemRequest.buyerId, rateItemRequest.itemId)){
+        if(feedBackDAO.doesFeedbackExist(rateItemRequest.buyerId, rateItemRequest.itemId)) {
             return false;
         }
         feedBackDAO.saveFeedback(rateItemRequest.itemId, rateItemRequest.buyerId, rateItemRequest.feedback);

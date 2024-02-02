@@ -2,12 +2,16 @@ package handlers;
 
 import mappers.RequestHandlerMapper;
 import pojos.Operation;
+import pojos.Session;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Stack;
 import java.util.Timer;
 
 public class ClientHandler implements Runnable{
@@ -15,11 +19,13 @@ public class ClientHandler implements Runnable{
     private boolean loggedIn;
 
     private ClientSessionTimer clientSessionTimer;
+    Session session;
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
         loggedIn = false;
         clientSessionTimer = new ClientSessionTimer();
+        session = new Session();
     }
     public void run() {
         try {
@@ -31,19 +37,24 @@ public class ClientHandler implements Runnable{
                 Operation operation = (Operation) objectInputStream.readObject();
                 System.out.println("executing request Operation "+operation);
                 clientSessionTimer.resetSessionTimeoutTimer(objectOutputStream, clientSocket);
-                if (!loggedIn && !Operation.LOGIN.equals(operation)) {
-                    objectOutputStream.writeObject("Please LogIn to the System");
-                    break;
-                } else if(Operation.LOGIN.equals(operation)){
-                    loggedIn = true;
-                }
                 if(Operation.LOGOUT.equals(operation)){
                     break;
                 }
                 Object request = objectInputStream.readObject();
                 System.out.println(operation + " received request " + request);
-                objectOutputStream.writeObject(RequestHandlerMapper.getRequestHandler(operation).handle(request));
+                if(session.getSessionId() == null && !(Operation.LOGIN.equals(operation)|| Operation.CREATE_ACCOUNT.equals(operation))){
+                    objectOutputStream.writeObject("Please LogIn to the System or Create Account");
+                    break;
+                }
+                Object response;
+                try {
+                    response = RequestHandlerMapper.getRequestHandler(operation).handle(request, session);
+                } catch (Exception e){
+                    response = e.getMessage();
+                }
+                objectOutputStream.writeObject(response);
             }
+
             objectOutputStream.writeObject("closing the connection");
             objectInputStream.close();
             objectOutputStream.close();

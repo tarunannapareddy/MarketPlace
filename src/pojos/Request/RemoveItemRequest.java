@@ -9,8 +9,11 @@ public class RemoveItemRequest implements Serializable {
 
     public Integer quantity;
 
-    public RemoveItemRequest(String itemId, Integer quantity) {
+    public Integer sellerId;
+
+    public RemoveItemRequest(String itemId, Integer sellerId, Integer quantity) {
         this.itemId = itemId;
+        this.sellerId = sellerId;
         this.quantity = quantity;
     }
 }

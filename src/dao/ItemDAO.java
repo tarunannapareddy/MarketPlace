@@ -17,7 +17,7 @@ public class ItemDAO {
         this.conn = DBConnector.getProductConnection();
     }
 
-    public Integer addItem(Item item) {
+    public String addItem(Item item) {
         try {
             // Insert into the item table
             String insertQuery = "INSERT INTO item (item_id, category, seller_id, name, quantity, sale_price, keywords, condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -36,14 +36,14 @@ public class ItemDAO {
                 if (rowsAffected > 0) {
                     ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
                     if (generatedKeys.next()) {
-                        return generatedKeys.getInt(1); // Return the generated ID
+                        return item.getItemId(); // Return the generated ID
                     }
                 }
             }
         } catch (SQLException e) {
             System.out.println("error while updating item"+e);
         }
-        return -1;
+        return "";
     }
 
     public boolean updateItemPrice(String itemID, double newSalePrice) {

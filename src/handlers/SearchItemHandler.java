@@ -2,6 +2,7 @@ package handlers;
 
 import dao.ItemDAO;
 import pojos.Request.SearchItemRequest;
+import pojos.Session;
 
 public class SearchItemHandler implements RequestHandler{
     private ItemDAO itemDAO;
@@ -11,7 +12,7 @@ public class SearchItemHandler implements RequestHandler{
     }
 
     @Override
-    public Object handle(Object request) {
+    public Object handle(Object request, Session sessionId) {
         SearchItemRequest searchItemRequest = (SearchItemRequest) request;
         return itemDAO.getItemsByCategoryAndKeywords(searchItemRequest.category, searchItemRequest.keyWords);
     }

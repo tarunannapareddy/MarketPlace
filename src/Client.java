@@ -28,9 +28,9 @@ public class Client {
                     } else if (Operation.SELLER_ADD_ITEM.equals(operation)) {
                         request = new Item("steelbottle", 3, "NEW", 15, 22.5, 10, new String[]{"steel", "test", "working"});
                     } else if (Operation.SELLER_UPDATE_ITEM.equals(operation)) {
-                        request = new Item(userInput.readLine(), 21.2);
+                        request = new Item(userInput.readLine(), 10, 21.2);
                     } else if (Operation.SELLER_REMOVE_ITEM.equals(operation)) {
-                        request = new RemoveItemRequest(userInput.readLine(), 2);
+                        request = new RemoveItemRequest(userInput.readLine(),10, 2);
                     } else if (Operation.RATE_ITEM.equals(operation)) {
                         request = new RateItemRequest(11, userInput.readLine(), true);
                     } else if (Operation.SEARCH_ITEM.equals(operation)) {
@@ -107,10 +107,8 @@ public class Client {
             objectOutputStream.close();
             userInput.close();
             socket.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            System.out.println("Client Connection ended with the exception "+e.getMessage());
         }
     }
 }

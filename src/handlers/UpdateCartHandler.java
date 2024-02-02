@@ -1,9 +1,11 @@
 package handlers;
 
+import Exceptions.InvalidDataException;
 import dao.CartDAO;
 import dao.ItemDAO;
 import pojos.Item;
 import pojos.Request.UpdateCartRequest;
+import pojos.Session;
 
 public class UpdateCartHandler implements RequestHandler{
     private CartDAO cartDAO;
@@ -16,8 +18,11 @@ public class UpdateCartHandler implements RequestHandler{
     }
 
     @Override
-    public Object handle(Object request) {
+    public Object handle(Object request, Session session) throws InvalidDataException {
         UpdateCartRequest updateCartRequest = (UpdateCartRequest) request;
+        if(!session.getSessionId().equals(updateCartRequest.getBuyerId())){
+            throw  new InvalidDataException("User Not Authorised");
+        }
         int cartId = cartDAO.getCart(updateCartRequest.getBuyerId());
         if(updateCartRequest.isSaveCart()){
             return true;

@@ -42,8 +42,9 @@ public class Item implements Serializable {
         this.keyWords = keyWords;
     }
 
-    public Item(String itemId, Double salePrice) {
+    public Item(String itemId, Integer sellerId, Double salePrice) {
         this.itemId = itemId;
+        this.sellerId = sellerId;
         this.salePrice = salePrice;
     }
 

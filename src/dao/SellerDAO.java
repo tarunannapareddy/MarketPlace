@@ -38,7 +38,6 @@ public class SellerDAO {
 
         Seller seller=null;
         try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-            preparedStatement.setInt(1, seller_id);
             try {
                 ResultSet rs =preparedStatement.executeQuery();
                 while (rs.next()) {

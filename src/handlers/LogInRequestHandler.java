@@ -1,6 +1,8 @@
 package handlers;
 
+import Exceptions.InvalidDataException;
 import dao.UserDAO;
+import pojos.Session;
 import pojos.User;
 import pojos.Request.LogInRequest;
 
@@ -12,12 +14,13 @@ public class LogInRequestHandler implements RequestHandler{
     }
 
     @Override
-    public Object handle(Object request) {
+    public Object handle(Object request, Session session) throws InvalidDataException {
         LogInRequest loginRequest = (LogInRequest) request;
         User user = userDAO.getUser(loginRequest.username, loginRequest.password);
         if(user == null){
-            return -1;
+            throw  new InvalidDataException("invalid username or Password");
         }
+        session.setSessionId(user.getId());
         return user.getId();
     }
 }

@@ -1,6 +1,9 @@
 package dao;
 
+import Exceptions.InvalidDataException;
 import dbConnector.DBConnector;
+import dbConnector.DBConnectorSocket;
+import pojos.DBConnection;
 import pojos.User;
 
 import java.sql.Connection;
@@ -11,15 +14,18 @@ public class UserDAO {
 
     private Connection conn;
 
+    private DBConnection dbConnection;
+
     public UserDAO() {
         this.conn = DBConnector.getCustomerConnection();
+        this.dbConnection = DBConnectorSocket.getCustomerConnection();
     }
 
-    public Integer createUser(String userName, String password){
+    public Integer createUser(String userName, String password) throws InvalidDataException {
         User user = getUser(userName);
         int val =-1;
         if(user !=null) {
-            return val;
+            throw new InvalidDataException("user already exists");
         }
         Statement statement;
         try {

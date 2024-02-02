@@ -1,6 +1,7 @@
 package handlers;
 
 import dao.ItemDAO;
+import pojos.Session;
 
 public class GetItemsHandler implements RequestHandler{
     ItemDAO itemDAO;
@@ -11,7 +12,7 @@ public class GetItemsHandler implements RequestHandler{
 
 
     @Override
-    public Object handle(Object request) {
+    public Object handle(Object request, Session sessionId) {
         Integer sellerId = (Integer) request;
         return itemDAO.getItemsBySellerId(sellerId);
     }
