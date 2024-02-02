@@ -31,8 +31,8 @@
 ### Keywords and Search
 - Each item is associated with a set of keywords stored in the database.
 - Searches involve intersecting keyword sets to respond with relevant items.
+<img width="653" alt="Screenshot 2024-02-02 at 2 41 55 PM" src="https://github.com/tarunannapareddy/Marketplace/assets/19953916/1dc98489-d6f5-4093-850f-2533f04e4675">
 
-![Screenshot 2024-02-02 at 2.38.22 PM.png](..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fpm%2Fwjzzl6dx7nj4bgqy4nywh1140000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_exBOaP%2FScreenshot%202024-02-02%20at%202.38.22%20PM.png)
 
 ## Database Interaction
 
